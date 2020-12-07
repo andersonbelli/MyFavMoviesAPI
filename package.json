@@ -1,0 +1,32 @@
+{
+  "name": "myfavmoviesapi",
+  "version": "1.0.0",
+  "description": "The best API of the best website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon --exec mocha",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andersonbelli/MyFavMoviesAPI.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Belli Anderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andersonbelli/MyFavMoviesAPI/issues"
+  },
+  "homepage": "https://github.com/andersonbelli/MyFavMoviesAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.2.1"
+  }
+}

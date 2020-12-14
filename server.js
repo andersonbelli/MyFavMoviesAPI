@@ -1,5 +1,4 @@
 require('dotenv-safe').config();
-const jwt = require('jsonwebtoken');
 
 require('./config/dbConfig');
 

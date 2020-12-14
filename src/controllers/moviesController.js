@@ -1,3 +1,5 @@
+const auth = require('../controllers/authController');
+
 const mongoose = require('mongoose'),
 	Movies = mongoose.model('Movies');
 
@@ -20,7 +22,6 @@ exports.list_mostly_added_movies = (_, res) => {
 };
 
 exports.movie_details = (req, res) => {
-
 	if (mongoose.Types.ObjectId.isValid(req.params.idMovie)) {
 		Movies.findById(req.params.idMovie, (err, movie) => {
 			if (err) throw err;
@@ -39,29 +40,41 @@ exports.movie_details = (req, res) => {
 };
 
 exports.create_movie = (req, res) => {
-	let new_movie = new Movies(req.body);
+	auth.verifyJWT(req, res).then((_) => {
+		let new_movie = new Movies(req.body);
 
-	new_movie.save((err, movie) => {
-		if (err) throw err;
+		new_movie.save((err, movie) => {
+			if (err) throw err;
 
-		res.status(201).json(movie);
+			res.status(201).json(movie);
+		});
+	}).catch((e) => {
+		console.error("\nauth - ERROR > " + e);
 	});
 };
 
 exports.update_movie = (req, res) => {
-	Movies.findOneAndUpdate({ _id: req.params.idMovie }, req.body, { new: true },
-		(err, movie) => {
-			if (err) throw err;
+	auth.verifyJWT(req, res).then((_) => {
+		Movies.findOneAndUpdate({ _id: req.params.idMovie }, req.body, { new: true },
+			(err, movie) => {
+				if (err) throw err;
 
-			res.json(movie);
-		});
+				res.json(movie);
+			});
+	}).catch((e) => {
+		console.error("\nauth - ERROR > " + e);
+	});
 };
 
 exports.delete_movie = (req, res) => {
-	Movies.deleteOne({ _id: req.params.idMovie },
-		(err, _) => {
-			if (err) throw err;
+	auth.verifyJWT(req, res).then((_) => {
+		Movies.deleteOne({ _id: req.params.idMovie },
+			(err, _) => {
+				if (err) throw err;
 
-			res.json({ message: 'Movie successfully deleted!' });
-		});
+				res.json({ message: 'Movie successfully deleted!' });
+			});
+	}).catch((e) => {
+		console.error("\nauth - ERROR > " + e);
+	});
 };

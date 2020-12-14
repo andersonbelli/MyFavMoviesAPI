@@ -1,8 +1,14 @@
+require('dotenv-safe').config();
+const jwt = require('jsonwebtoken');
+
 require('./config/dbConfig');
+
+var timeout = require('connect-timeout');
 
 const express = require('express'),
 	app = express();
 
+app.use(timeout('10s'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

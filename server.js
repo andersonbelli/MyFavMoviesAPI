@@ -2,11 +2,12 @@ require('dotenv-safe').config();
 
 require('./config/dbConfig');
 
+var cors = require('cors');
 var timeout = require('connect-timeout');
-
 const express = require('express'),
 	app = express();
 
+app.use(cors());
 app.use(timeout('10s'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -1,9 +1,5 @@
-var cors = require('cors');
-
 module.exports = (app) => {
 	const movies = require('../controllers/moviesController');
-
-	app.use(cors());
 
 	app.route('/movies')
 		.get(movies.list_mostly_added_movies)
